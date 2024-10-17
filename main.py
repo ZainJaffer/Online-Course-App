@@ -1,18 +1,25 @@
 class Course:
-    def __init__(self, title, instructor, duration, price):
+    def __init__(self, title, instructor, duration, price, status=True):
         self.title = title
         self.instructor = instructor
         self.duration = duration
         self.price = price
+        self.status = status
 
     def get_details(self):
-        pass
+       return {
+        'title' : self.title,
+        'instructor': self.instructor, 
+        'duration': self.duration, 
+        'price' : self.price, 
+        'status' : self.status 
+        }
 
     def cancel_course(self):
-        pass
+        self.status = False
 
 class FreeCourse(Course):
-    def __init__(self, title, instructor, duration, price):
+    def __init__(self, title, instructor, duration, price=0):
         super().__init__(title, instructor, duration, price)
 
 class PaidCourse(Course):
@@ -24,17 +31,19 @@ class PremiumCourse(Course):
         super().__init__(title, instructor, duration, price)
 
 class Student:
-    def __init__(self, name, enrolled_courses):
+    def __init__(self, name):
+        self.enrolled_courses = {}
         pass
 
     def enroll(self,course):
-        pass
+        self.course = self.enrolled_courses = course
 
-    def cancel_enrollment(self, course);
+    def cancel_enrollment(self, course):
         pass
 
     def list_courses(self):
-        pass
+        course = self.enrolled_courses
+        print(f"{course['title']} by {course['instructor']}. {course['duration']} day course for ${course['price']}")
 
 class CoursePlatform:
     def __init__(self, courses, students):
@@ -54,7 +63,15 @@ class CoursePlatform:
 
     def list_students():
         pass
-        
+
+python_course = PaidCourse('Intro to Python Coding','Angela Yu', 90, 30)
+
+zain=Student('Zain Jaffer')
+
+zain.enroll(python_course.get_details())
+zain.list_courses()
+
+
 """
 
 Student Class:
