@@ -7,6 +7,7 @@ class Course:
         self.status = status
 
     def get_details(self):
+       """This is not currently used"""
        return {
         'title' : self.title,
         'instructor': self.instructor, 
@@ -36,14 +37,15 @@ class Student:
         pass
 
     def enroll(self,course):
-        self.course = self.enrolled_courses = course
-
+        self.enrolled_courses.update({course.title : course})
+ 
     def cancel_enrollment(self, course):
-        pass
+        del self.enrolled_courses[course.title]
 
     def list_courses(self):
         course = self.enrolled_courses
-        print(f"{course['title']} by {course['instructor']}. {course['duration']} day course for ${course['price']}")
+        for keys in course:
+            print(f"{course[keys].title}: {course[keys].instructor}, {course[keys].duration} days for ${course[keys].price}") if course[keys].status else print("Sorry course is no longer active")
 
 class CoursePlatform:
     def __init__(self, courses, students):
@@ -65,12 +67,15 @@ class CoursePlatform:
         pass
 
 python_course = PaidCourse('Intro to Python Coding','Angela Yu', 90, 30)
+java_course = FreeCourse('Intro to Java Coding', 'Bob Milk', 10)
 
 zain=Student('Zain Jaffer')
 
-zain.enroll(python_course.get_details())
+zain.enroll(python_course)
+zain.enroll(java_course)
 zain.list_courses()
-
+zain.cancel_enrollment(python_course)
+zain.list_courses()
 
 """
 
