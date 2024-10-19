@@ -32,9 +32,10 @@ class PremiumCourse(Course):
         super().__init__(title, instructor, duration, price)
 
 class Student:
-    def __init__(self, name):
+    def __init__(self, name, password):
         self.enrolled_courses = {}
         self.name = name
+        self.password = password
 
     def enroll(self,course):
         self.enrolled_courses.update({course.title : course})
@@ -73,6 +74,51 @@ class CoursePlatform:
     def list_students(self):
         for key in self.all_students:
             print(key)
+
+def main_menu():
+    print("Welcome to the Course Platform!")
+    
+    # Loop until the user enters a valid choice
+    while True:
+        print("1. Register")
+        print("2. Log in")
+        choice = input("Please choose an option (1 or 2): ")
+        
+        try:
+            # Try to convert input to an integer
+            choice = int(choice)
+            
+            if choice == 1:
+                print("You chose to register.")
+                register()
+            elif choice == 2:
+                print("You chose to log in.")
+                break
+            else:
+                # Handle case where the number isn't 1 or 2
+                print("Invalid choice. Please choose 1 or 2.")
+        except ValueError:
+            # This block will run if the input isn't a valid integer
+            print("Invalid input. Please enter a number (1 or 2).")
+
+def register():
+    first_name = input("Please type in your first name: ").title()
+    last_name = input("Please type in your last name").title()
+    full_name = first_name + " " + last_name
+    print(full_name)
+
+# Example of calling the main_menu function
+main_menu()
+
+
+
+
+
+
+
+
+
+
 
 python_course = PaidCourse('Intro to Python Coding','Angela Yu', 90, 30)
 java_course = FreeCourse('Intro to Java Coding', 'Bob Milk', 10)
