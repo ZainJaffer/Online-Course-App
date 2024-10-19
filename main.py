@@ -7,7 +7,7 @@ class Course:
         self.status = status
 
     def get_details(self):
-       """This is not currently used"""
+       
        return {
         'title' : self.title,
         'instructor': self.instructor, 
@@ -34,7 +34,7 @@ class PremiumCourse(Course):
 class Student:
     def __init__(self, name):
         self.enrolled_courses = {}
-        pass
+        self.name = name
 
     def enroll(self,course):
         self.enrolled_courses.update({course.title : course})
@@ -48,23 +48,28 @@ class Student:
             print(f"{course[keys].title}: {course[keys].instructor}, {course[keys].duration} days for ${course[keys].price}") if course[keys].status else print("Sorry course is no longer active")
 
 class CoursePlatform:
-    def __init__(self, courses, students):
-        pass
+    def __init__(self, course=0, students=0):
+        self.course = course
+        self.students = students
+        self.all_courses = {}
+        self.students = []
 
-    def add_course(self):
-        pass
+    def add_course(self, course):
+        self.all_courses.update({course.title : course})
 
     def remove_course(self):
         pass
 
     def list_courses(self):
-        pass
+        for value in self.all_courses.values():
+            print(f"{value.title} : {value.instructor}, {value.duration} days for ${value.price}, Active: {value.status}")
 
     def register_student(self, student):
-        pass
+        self.students.append([student.name])
 
-    def list_students():
-        pass
+    def list_students(students):
+        for key in students:
+            print(key)
 
 python_course = PaidCourse('Intro to Python Coding','Angela Yu', 90, 30)
 java_course = FreeCourse('Intro to Java Coding', 'Bob Milk', 10)
@@ -73,9 +78,15 @@ zain=Student('Zain Jaffer')
 
 zain.enroll(python_course)
 zain.enroll(java_course)
-zain.list_courses()
+
 zain.cancel_enrollment(python_course)
-zain.list_courses()
+
+
+udemy = CoursePlatform()
+udemy.add_course(python_course)
+udemy.list_courses()
+udemy.register_student(zain)
+udemy.list_students()
 
 """
 
