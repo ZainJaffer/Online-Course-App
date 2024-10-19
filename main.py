@@ -48,27 +48,30 @@ class Student:
             print(f"{course[keys].title}: {course[keys].instructor}, {course[keys].duration} days for ${course[keys].price}") if course[keys].status else print("Sorry course is no longer active")
 
 class CoursePlatform:
-    def __init__(self, course=0, students=0):
+    def __init__(self, course=0):
         self.course = course
-        self.students = students
         self.all_courses = {}
-        self.students = []
+        self.all_students = []
 
     def add_course(self, course):
         self.all_courses.update({course.title : course})
 
-    def remove_course(self):
-        pass
+    def remove_course(self,course):
+        del self.all_courses[course.title]
 
     def list_courses(self):
-        for value in self.all_courses.values():
-            print(f"{value.title} : {value.instructor}, {value.duration} days for ${value.price}, Active: {value.status}")
+        if len(self.all_courses) == 0:
+            print("There are no classes on the platform")
+        else:     
+            for value in self.all_courses.values():
+                print(f"{value.title} : {value.instructor}, {value.duration} days for ${value.price}, Active: {value.status}")
 
-    def register_student(self, student):
-        self.students.append([student.name])
+    def register_student(self, *student):
+        for names in student:
+            self.all_students.append(names.name)
 
-    def list_students(students):
-        for key in students:
+    def list_students(self):
+        for key in self.all_students:
             print(key)
 
 python_course = PaidCourse('Intro to Python Coding','Angela Yu', 90, 30)
@@ -87,40 +90,13 @@ udemy.add_course(python_course)
 udemy.list_courses()
 udemy.register_student(zain)
 udemy.list_students()
+udemy.remove_course(python_course)
+udemy.list_courses()
+udemy.add_course(java_course)
+udemy.list_courses()
 
-"""
+youtube = CoursePlatform()
 
-Student Class:
 
-Attributes: name, enrolled_courses (a dictionary of courses the student is enrolled in)
-Methods:
-enroll(course): Enroll the student in a course.
-cancel_enrollment(course): Cancel enrollment in a course.
-list_courses(): List all courses the student is enrolled in.
-CoursePlatform Class:
 
-Attributes: courses (dictionary of available courses), students (dictionary of registered students)
-Methods:
-add_course(course): Add a course to the platform.
-remove_course(course): Remove a course from the platform.
-list_courses(): List all available courses.
-register_student(student): Register a student on the platform.
-list_students(): List all registered students.
-Example Repeated Problems:
-Student Enrollments:
-
-Practice enrolling multiple students in various courses.
-Repeat adding, removing, and canceling enrollments to get comfortable with dictionary operations.
-
-Course Management:
-
-Add, remove, and manage multiple courses. 
-You’ll practice inheritance and repeatedly work with different course 
-types (Free, Paid, Premium).
-
-Listing and Viewing Details:
-
-Implement list_courses() and list_students() repeatedly 
-across different classes, ensuring that all data 
-is displayed in a structured way."""
 
