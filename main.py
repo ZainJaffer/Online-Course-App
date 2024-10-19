@@ -32,7 +32,7 @@ class PremiumCourse(Course):
         super().__init__(title, instructor, duration, price)
 
 class Student:
-    def __init__(self, name, password):
+    def __init__(self, name, password=0):
         self.enrolled_courses = {}
         self.name = name
         self.password = password
@@ -69,15 +69,15 @@ class CoursePlatform:
 
     def register_student(self, *student):
         for names in student:
-            self.all_students.append(names.name)
+            self.all_students.append(names)
+            print(f"Registered: {names.name}")
 
     def list_students(self):
-        for key in self.all_students:
-            print(key)
+        for student in self.all_students:
+            print(f"Here are the list of students: {student.name}")
 
 def main_menu():
     print("Welcome to the Course Platform!")
-    
     # Loop until the user enters a valid choice
     while True:
         print("1. Register")
@@ -87,10 +87,11 @@ def main_menu():
         try:
             # Try to convert input to an integer
             choice = int(choice)
-            
+      
+
             if choice == 1:
                 print("You chose to register.")
-                register()
+                register(udemy)
             elif choice == 2:
                 print("You chose to log in.")
                 break
@@ -101,47 +102,49 @@ def main_menu():
             # This block will run if the input isn't a valid integer
             print("Invalid input. Please enter a number (1 or 2).")
 
-def register():
+def register(udemy):
     first_name = input("Please type in your first name: ").title()
     last_name = input("Please type in your last name").title()
     full_name = first_name + " " + last_name
-    print(full_name)
+    full_name = Student(name=full_name)
+    udemy.register_student(full_name)
+    udemy.list_students()
 
-# Example of calling the main_menu function
+udemy=CoursePlatform()
+  
 main_menu()
-
-
-
-
-
-
-
-
-
-
-
-python_course = PaidCourse('Intro to Python Coding','Angela Yu', 90, 30)
-java_course = FreeCourse('Intro to Java Coding', 'Bob Milk', 10)
-
-zain=Student('Zain Jaffer')
-
-zain.enroll(python_course)
-zain.enroll(java_course)
-
-zain.cancel_enrollment(python_course)
-
-
-udemy = CoursePlatform()
-udemy.add_course(python_course)
-udemy.list_courses()
-udemy.register_student(zain)
 udemy.list_students()
-udemy.remove_course(python_course)
-udemy.list_courses()
-udemy.add_course(java_course)
-udemy.list_courses()
 
-youtube = CoursePlatform()
+
+
+
+
+
+
+
+
+# python_course = PaidCourse('Intro to Python Coding','Angela Yu', 90, 30)
+# java_course = FreeCourse('Intro to Java Coding', 'Bob Milk', 10)
+
+# zain=Student('Zain Jaffer')
+
+# zain.enroll(python_course)
+# zain.enroll(java_course)
+
+# zain.cancel_enrollment(python_course)
+
+
+# udemy = CoursePlatform()
+# udemy.add_course(python_course)
+# udemy.list_courses()
+# udemy.register_student(zain)
+# udemy.list_students()
+# udemy.remove_course(python_course)
+# udemy.list_courses()
+# udemy.add_course(java_course)
+# udemy.list_courses()
+
+# youtube = CoursePlatform()
 
 
 
